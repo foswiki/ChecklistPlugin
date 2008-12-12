@@ -414,7 +414,7 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 |  v1.002 (31 Oct 2005) | TWiki:Main.DanielRohde: fixed cache problems; fixed HTML/URL encoding bugs; fixed reload bug; fixed reset image button bug; added anchors|
 |  v1.001 (27 Oct 2005) | TWiki:Main.DanielRohde: added new features ('reset','text' attributes); fixed major 'name' attribute bug; fixed documentation bugs | 
 |  v1.000 (27 Oct 2005): | TWiki:Main.DanielRohde: Initial version |
-|  TWiki Dependency: | $TWiki::Plugins::VERSION 1.024 |
+|  Foswiki Dependency: | $Foswiki::Plugins::VERSION 1.024 |
 |  CPAN Dependencies: | none |
 |  Other Dependencies: | Foswiki:Extensions.SmiliesPlugin |
 |  Perl Version: | 5.005 |
