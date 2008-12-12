@@ -388,7 +388,7 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 |  Plugin Author: | TWiki:Main.DanielRohde |
 |  Plugin Version: | v1.025 (BETA) |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
-|  v1.025 (BETA) | TWiki:Main.DanielRohde: added documentation requested by TWiki:Main.PeterThoeny |
+|  v1.025 (BETA) | TWiki:Main.DanielRohde: added documentation requested by TWiki:Main.PeterThoeny. Rebranded to Foswiki by Kenneth Lavrsen |
 |  v1.024 (20 Apr 2007) | TWiki:Main.DanielRohde: fixed missing ')' in generated !JavaScript commands |
 |  v1.023 (1 Mar 2007) | TWiki:Main.DanielRohde: fixed minor anchor link bug reported by TWiki:Main.KeithHelfrich; fixed tooltip position bug |
 |  v1.022 (12 Feb 2007) | TWiki:Main.DanielRohde: improved AJAX performance; added new feature (state selection for reset button); fixed %<nop>TOC% bug reported by TWiki:Main.HelenJohnstone; fixed some minor and major bugs (mod_perl, description stripping, =static= feature, 'text' icons);  removed useforms feature |
