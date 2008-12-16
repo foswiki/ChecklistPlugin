@@ -79,9 +79,10 @@ $VERSION = '$Rev$';
 # This is a free-form string you can use to "name" your own plugin version.
 # It is *not* used by the build automation tools, but is reported as part
 # of the version number in PLUGINDESCRIPTIONS.
-$RELEASE = 'Cairo, Dakar, Edinburgh, ...';
+$RELEASE = 'Foswiki';
 
-$REVISION = '1.024'; #dro# fixed missing ')' in generated JavaScript commands
+$REVISION = '1.026'; # Kenneth Lavrsen created Foswiki version
+#$REVISION = '1.024'; #dro# fixed missing ')' in generated JavaScript commands
 #$REVISION = '1.023'; #dro# fixed minor anchor link bug reported by TWiki:Main.KeithHelfrich; fixed tooltip position bug
 #$REVISION = '1.022'; #dro# improved AJAX performance; added new feature (state selection for reset button); fixed %TOC% bug reported by TWiki:Main.HelenJohnstone; fixed some minor and major bugs (mod_perl, description stripping, static feature, 'text' icons);  removed useforms feature
 #$REVISION = '1.021'; #dro# fixed some major bug (mod_perl, plugin preferences); improved performance (AJAX); fixed minor IE caching bug (AJAX related); added new attributes (tooltip, descr, template, statesel) requested by TWiki:Main.KeithHelfrich; fixed installation instructions bug reported by TWiki:Main.KeithHelfrich

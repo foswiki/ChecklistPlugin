@@ -385,9 +385,11 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 #ChecklistPluginInfo
 ---++ Plugin Info
 
-|  Plugin Author: | TWiki:Main.DanielRohde |
-|  Plugin Version: | v1.025 (BETA) |
+|  Plugin Author: | Foswiki:Main.DanielRohde |
+|  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
+|  Plugin Version: | v1.026 |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  v1.026 (16 Dec 2008) | Foswiki:Main.KennethLavrsen: Foswiki version - no feature changes |
 |  v1.025 (BETA) | TWiki:Main.DanielRohde: added documentation requested by TWiki:Main.PeterThoeny. Rebranded to Foswiki by Kenneth Lavrsen |
 |  v1.024 (20 Apr 2007) | TWiki:Main.DanielRohde: fixed missing ')' in generated !JavaScript commands |
 |  v1.023 (1 Mar 2007) | TWiki:Main.DanielRohde: fixed minor anchor link bug reported by TWiki:Main.KeithHelfrich; fixed tooltip position bug |
@@ -417,9 +419,7 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 |  Foswiki Dependency: | $Foswiki::Plugins::VERSION 1.024 |
 |  CPAN Dependencies: | none |
 |  Other Dependencies: | Foswiki:Extensions.SmiliesPlugin |
-|  Perl Version: | 5.005 |
-|  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Foswiki:Extensions/Benchmark: | %SYSTEMWEB%.GoodStyle 97%, %SYSTEMWEB%.FormattedSearch 99%, %TOPIC% 92% |
+|  Perl Version: | 5.008 |
 |  Plugin Home: | http://foswiki.org/Extensions/%TOPIC% |
 |  Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev |
 
