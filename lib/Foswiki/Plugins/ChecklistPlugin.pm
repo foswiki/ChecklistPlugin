@@ -2,7 +2,7 @@
 #
 # Copyright (C) 2000-2003 Andrea Sterbini, a.sterbini@flashnet.it
 # Copyright (C) 2001-2004 Peter Thoeny, peter@thoeny.com
-# Copyright (C) 2005-2008 Daniel Rohde
+# Copyright (C) 2005-2009 Daniel Rohde
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -64,6 +64,7 @@ use vars qw(
     	$resetDone $stateChangeDone $saveDone
 	$initText %itemsCollected $dryrun
         $web $topic $user
+	$idOffset
     );
 
 use strict;
@@ -79,9 +80,10 @@ $VERSION = '$Rev$';
 # This is a free-form string you can use to "name" your own plugin version.
 # It is *not* used by the build automation tools, but is reported as part
 # of the version number in PLUGINDESCRIPTIONS.
-$RELEASE = 'Foswiki';
+$RELEASE = 'Cairo, Dakar, Edinburgh, ...';
 
-$REVISION = '1.026'; # Kenneth Lavrsen created Foswiki version
+
+$REVISION = '1.025'; #dro# added documentation requested by TWiki:Main.PeterThoeny; added hide entries feature requested by Christian Holzmann; added log feature requested by TWiki:Main.VickiBrown
 #$REVISION = '1.024'; #dro# fixed missing ')' in generated JavaScript commands
 #$REVISION = '1.023'; #dro# fixed minor anchor link bug reported by TWiki:Main.KeithHelfrich; fixed tooltip position bug
 #$REVISION = '1.022'; #dro# improved AJAX performance; added new feature (state selection for reset button); fixed %TOC% bug reported by TWiki:Main.HelenJohnstone; fixed some minor and major bugs (mod_perl, description stripping, static feature, 'text' icons);  removed useforms feature
@@ -172,11 +174,15 @@ sub commonTagsHandler
 sub handleAllTags {
 
 	### my ( $text, $topic, $web ) = @_;   # do not uncomment, use $_[0], $_[1]... instead
+	#
+	
+	
 	$_[0] =~ s/%CHECKLISTSTART%(.*?)%CHECKLISTEND%/&handleAutoChecklist("",$1,$_[0])/sge;
 	$_[0] =~ s/%CHECKLISTSTART{(.*?)}%(.*?)%CHECKLISTEND%/&handleAutoChecklist($1,$2,$_[0])/sge;
 	$_[0] =~ s/%CHECKLIST%/&handleChecklist("",$_[0])/ge;
 	$_[0] =~ s/%CHECKLIST{(.*?)}%/&handleChecklist($1,$_[0])/sge;
 	$_[0] =~ s/%CLI({(.*?)})?%/&handleChecklistItem($2,$_[0],$-[0],$+[0])/sge;
+
 	##$_[0] =~ s/([^\n\%]*)%CLI({(.*?)})?%([^\n\%]*)/$1.&handleChecklistItem($3,$_[0],$1,$4).$4/sge;
 }
 
@@ -212,16 +218,21 @@ sub initDefaults {
 		'statesel' => 0,
 		'tooltipfixleft' => '-163',
 		'tooltipfixtop' => '0',
+		'hide'=> undef,
+		'log'=> 0,
+		'logformat'=>"   * %SERVERTIME% - %WIKIUSERNAME% - Item %CLIID%: from %STATE% to %NEXTSTATE% \n",
+		'logtopic'=>$topic.'ChecklistLog',
+		'logpos' => 'append',
 	);
 
 	@listOptions = ('states','stateicons');
-	@renderedOptions = ( 'text', 'stateicons', 'reset' );
+	@renderedOptions = ( 'text', 'stateicons', 'reset', 'hide' );
 
 	@filteredOptions = ( 'id', 'name', 'states');
 
-	@flagOptions = ('showlegend', 'anchors', 'notify', 'static' , 'useajax', 'statesel');
+	@flagOptions = ('showlegend', 'anchors', 'notify', 'static' , 'useajax', 'statesel', 'log');
 
-	@ignoreNamedDefaults = ('showlegend','reset');
+	@ignoreNamedDefaults = ('showlegend','reset','hide');
 }
 
 # =========================
@@ -441,6 +452,12 @@ sub handleChecklist {
 	} else {
 		$text.=$legend; 
 	}
+	if (defined $options{hide}) {
+		my $state="";
+		$state = $1 if ($options{hide}=~s/\@(\S+)//g);
+		$state = "" if $state eq $options{hide};
+		$text .= $query->a({href=>"javascript:  clpHideShowToggle('$options{name}','$state')"}, $options{hide});
+	}
 
 	return $text;
 }
@@ -503,13 +520,24 @@ sub substItemLine {
 	if ($l=~s/(\s+)\#(\S+)/$1/) {
 		$attribs.=" id=\"$2\"";
 	}
+
+	$idOffset++;
+
+	my $id = "CLP_HIDE_ID_".$options{name}.($namedIds{$options{name}} + $idOffset);
+	my $name = "CLP_HIDE_NAME_".$options{name};
+	my $class = "clp_hide_".$options{name}."_".$$idMapRef{$options{name}}{$namedIds{$options{name}}+$idOffset}{state};
+
 	if ($l=~/\%CLI{.*?}\%/) {
 		$l=~s/\%CLI{(.*?)}\%/\%CLI{$1 $attribs}\%/g;
+		$l=~s/^/<span id="$id" name="$name" class="$class">/;
+		$l=~s/$/<\/span>/;
 	} else {
 		if (lc($options{'clipos'}) eq 'left') {
-			$l=~s/^(\s+[\d\*]+)/"$1 \%CLI{$attribs}% "/e;
+			###$l=~s/^(\s+[\d\*]+)/"$1 \%CLI{$attribs}% "/e;
+			$l=~s/^(\s+[\d\*]+)(.*)$/"$1 <span id=\"$id\" name=\"$name\" class=\"$class\">\%CLI{$attribs}\% $2<\/span>"/e;
 		} else {
-			$l=~s/^(\s+[\d\*]+.*?)$/"$1 \%CLI{$attribs}%"/e;
+			###$l=~s/^(\s+[\d\*]+.*?)$/"$1 \%CLI{$attribs}%"/e;
+			$l=~s/^(\s+[\d\*]+)(.*?)$/"$1 <span id=\"$id\" name=\"$name\" class=\"$class\">$2 \%CLI{$attribs}\%<\/span>"/e;
 		}
 	}
 	
@@ -521,8 +549,15 @@ sub handleAutoChecklist {
 
 	Foswiki::Func::writeDebug("- ${pluginName}::handleAutoChecklist($attributes,...text...)") if $debug;
 
-	local(%options);
+	&initNamedDefaults($attributes);
+
+	local(%options); local($idOffset);
 	return &createUnknownParamsMessage() unless &initOptions($attributes);
+
+	initStates(Foswiki::Func::getCgiQuery());
+
+	handleStateChanges();
+
 
 	$text=~s/\%CLI(\{([^\}]*)\})?\%/&substAttributes($attributes, $2)/meg;
 	$text=~s/^(\s+[\d\*]+.*?)$/&substItemLine($1,$attributes)/meg;
@@ -697,6 +732,7 @@ sub doChecklistItemStateReset {
 	foreach my $id (keys %{$$idMapRef{$n}}) {
 		$$idMapRef{$n}{$id}{'state'}=$state;
 	}
+	saveLog('reset', $n, 'any', $state) if $options{log} && !$saveDone;
 	&saveChecklistItemStateTopic($n,&extractPerms($text)) if (!$saveDone) && (($saveDone=!$saveDone));
 }
 # =========================
@@ -710,8 +746,11 @@ sub doChecklistItemStateChange {
 	# reload?
 	return if ((defined $$idMapRef{$n}{$id}{'state'})&&($$idMapRef{$n}{$id}{'state'} ne $lastState));
 
-	$$idMapRef{$n}{$id}{'state'}=(defined $nextstate?$nextstate:(&getNextState($n, $$idMapRef{$n}{$id}{'state'}))[0]);
+	my $rns = (defined $nextstate?$nextstate:(&getNextState($n, $$idMapRef{$n}{$id}{'state'}))[0]);
 
+	$$idMapRef{$n}{$id}{'state'}=$rns;
+
+	&saveLog($id, $n, $lastState, $rns) if $options{log} && !$saveDone;
 	&saveChecklistItemStateTopic($n,&extractPerms($text)) if (!$saveDone) && (($saveDone=!$saveDone));
 }
 # =========================
@@ -942,6 +981,43 @@ sub getName {
 	return $name;
 }
 # =========================
+sub saveLog {
+	my ($id, $n, $laststate, $nextstate) = @_;
+
+	my $oopsUrl = &Foswiki::Func::setTopicEditLock($web, $options{logtopic}, 1);
+	if ($oopsUrl) {
+		&Foswiki::Func::redirectCgiQuery(Foswiki::Func::getCgiQuery(), $oopsUrl);
+		return;
+	}
+	
+	my $logtopictext = Foswiki::Func::readTopicText($web, $options{logtopic});
+	if ($logtopictext =~ /^http.*?\/oops/) {
+		Foswiki::Func::redirectCgiQuery(Foswiki::Func::getCgiQuery(), $logtopictext);
+		return;
+	}
+	checkChangeAccessPermission($options{logtopic}, $logtopictext) || return;
+
+	my $logentry = Foswiki::Func::expandCommonVariables($options{logformat}, $options{logtopic}, $web);
+
+
+	$logentry =~ s/%CLIID%/$id/g;
+	$logentry =~ s/%STATE%/$laststate/g;
+	$logentry =~ s/%NEXTSTATE%/$nextstate/g;
+
+	
+	my $meta = "";
+	while ($logtopictext =~s /(%META(:[^{]+){[^}]+}%)//s) {
+		$meta.=$1;
+	}
+	$logtopictext .= $logentry if $options{logpos} !~ /prepend/i;
+	$logtopictext = $logentry . $logtopictext if $options{logpos} =~ /prepend/i;
+
+	Foswiki::Func::saveTopicText($web, $options{logtopic}, "$meta\n$logtopictext", 1, !$options{'notify'});
+	Foswiki::Func::setTopicEditLock($web, $options{logtopic}, 0);
+
+
+}
+# =========================
 sub saveChecklistItemStateTopic {
 	my ($name,$perm) = @_;
 	return if $name eq "";
@@ -953,7 +1029,7 @@ sub saveChecklistItemStateTopic {
 		&Foswiki::Func::redirectCgiQuery(Foswiki::Func::getCgiQuery(), $oopsUrl);
 		return;
 	}
-	my $installWeb = $Foswiki::cfg{SystemWebName};
+	my $installWeb = ::cfg{SystemWebName};
 	my $topicText = "";
 	$topicText.="%RED% WARNING! THIS TOPIC IS GENERATED BY $installWeb.$pluginName PLUGIN. DO NOT EDIT THIS TOPIC (except table data)!%ENDCOLOR%\n";
 	$topicText.=qq@%BR%Back to the \[\[$web.$topic\]\[checklist topic $topic\]\].\n\n@;
@@ -1029,4 +1105,27 @@ sub postRenderingHandler  {
 sub endRenderingHandler  {
 	return postRenderingHandler( @_ );
 }
+# =========================
+sub handleStateChanges {
+
+	my ($text) = @_;
+	my $query = &Foswiki::Func::getCgiQuery();
+	if ((defined $query->param('clpsc'))&&(!$stateChangeDone)) {
+		my ($id,$name,$lastState,$nextstate) = ($query->param('clpsc'),$query->param('clpscn'),$query->param('clpscls'),$query->param('clpscns'));
+		if ($options{'name'} eq $name) {
+			&doChecklistItemStateChange($id, $name, $lastState, $text, $nextstate) ;
+			$stateChangeDone=1;
+		}
+	}
+	my @states = split /\|/, $options{'states'};
+	if ((defined $query->param('clreset'))&&(!$resetDone)) {
+		my $n=$query->param('clreset');
+		my $s=(defined $query->param('clresetst'))?$query->param('clresetst'):$states[0];
+		if (($options{'name'} eq $n)&&(grep(/^\Q$s\E$/s, @states))) {
+			&doChecklistItemStateReset($n,$s,$text);
+			$resetDone=1;
+		}
+	}
+}
 1;
+

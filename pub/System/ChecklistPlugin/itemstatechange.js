@@ -107,6 +107,16 @@ function clpHandleTextResponse(self, responseText) {
 				}
 			}
 
+			els = document.getElementById("CLP_HIDE_ID_"+id);
+			if (els) {
+				var spanExpr = new RegExp("<span id=\"CLP_HIDE_ID_"+id+"\"[^>]*>","i");
+				var span = spanExpr.exec(responseText);
+				span[0].match(/class="([^"]+)"/);
+				els.className=RegExp.$1;
+				clpUpdateHideShowToggle();
+			}
+
+
 			var divExpr = new RegExp("<div[^>]+id=\"CLP_TT_"+id+"\"[^>]*>(.*?)</div>");
 			divExpr.exec(responseText);
 			var divTxt = RegExp.$1;
@@ -267,4 +277,82 @@ function clpTooltipHide(id) {
 	var it = document.getElementById(id); 
 	if (it) it.style.visibility = 'hidden'; 
 }
+var clpHideShowToggleStates;
+function clpHideShowToggle(name,state) {
+	var chn = document.getElementsByName("CLP_HIDE_NAME_"+name);
+	if (!clpHideShowToggleStates[name]) {
+		clpHideShowToggleStates[name] = new Object();
+		clpHideShowToggleStates[name][state] = "list-item";
+	}
+	if (state != "" && clpHideShowToggleStates[name][""]) {
+		clpSaveHideShowToggleStates(name, state, clpHideShowToggleStates[name][""]);
+		clpDeleteHideShowToggleStates(name,"");
+	}
+	clpSaveHideShowToggleStates(name, state, (clpHideShowToggleStates[name][state] == "none") ? "list-item" : "none");
 
+	if  (chn && chn.length) {
+		for (var j=0; j<chn.length; ++j) {
+			if (state == "" || chn[j].className == "clp_hide_"+name+"_"+state) {
+
+				chn[j].style.display= clpHideShowToggleStates[name][state];
+			}
+		}
+	}
+}
+function clpGetCookiePath() {
+	var path = '/';
+
+	if (document.URL) {
+		if (document.URL.match(/^http:\/\/[^\/]+(\/.*)$/)) path = RegExp.$1; else if (document.URL.match(/^https:\/\/[^\/]+(\/.*)$/)) path = RegExp.$1;
+	}
+	return path;
+}
+function clpDeleteHideShowToggleStates(name,state) {
+	delete clpHideShowToggleStates[name][""];
+	
+	document.cookie = 'clpHide-'+name+'-'+state+'=; expires=Thu, 01-Jan-70 00:00:01 GMT; path='+clpGetCookiePath();
+}
+function clpSaveHideShowToggleStates(name,state,stateValue) {
+	clpHideShowToggleStates[name][state]=stateValue;
+	var a = new Date();
+	a = new Date(a.getTime() +1000*60*60*24*365);
+	document.cookie = 'clpHide-'+name+'-'+state+'='+stateValue+'; expires='+a.toGMTString()+'; path='+clpGetCookiePath(); 
+}
+function clpUpdateHideShowToggle() {
+	for (var name in clpHideShowToggleStates) {
+		var chn = document.getElementsByName("CLP_HIDE_NAME_"+name);
+		if (chn && chn.length) {
+			for (var state in clpHideShowToggleStates[name]) {
+				for (var j=0; j<chn.length; ++j) {
+					if (chn[j].className =="clp_hide_"+name+"_"+state) chn[j].style.display = clpHideShowToggleStates[name][state];
+					
+				}
+			}
+		}
+	}
+}
+function clpLoadHideShowToggleStates() {
+	if (!clpHideShowToggleStates) clpHideShowToggleStates=new Object();
+
+	if (document.cookie) {
+		var cookies = document.cookie.split(";");
+		for (var j=0; j<cookies.length; ++j) {
+			if (cookies[j].indexOf("clpHide-")>=0) {
+				var cookie = cookies[j].split("=");
+				var name = cookie[0];
+				var value = cookie[1];
+
+				var nameparts = name.split("-");
+
+				if (nameparts.length==3) {
+					if (!clpHideShowToggleStates[nameparts[1]]) clpHideShowToggleStates[nameparts[1]] = new Object();
+					clpHideShowToggleStates[nameparts[1]][nameparts[2]] = value;
+				}
+
+			}
+		}
+	}
+	window.setTimeout("clpUpdateHideShowToggle()",2500);
+}
+
+clpLoadHideShowToggleStates();
