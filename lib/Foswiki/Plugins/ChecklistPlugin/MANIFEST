@@ -1,3 +1,7 @@
 data/System/ChecklistPlugin.txt NEW
 lib/Foswiki/Plugins/ChecklistPlugin.pm NEW
 pub/System/ChecklistPlugin/itemstatechange.js NEW
+data/System/VarCHECKLIST.txt NEW
+data/System/VarCHECKLISTEND.txt NEW
+data/System/VarCHECKLISTSTART.txt NEW
+data/System/VarCLI.txt NEW
