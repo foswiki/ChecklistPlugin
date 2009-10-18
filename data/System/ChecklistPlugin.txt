@@ -284,7 +284,8 @@ Examples:
 | static | %<nop>CLI%<br/>%<nop>CHECKLIST%<br/>%<nop>CHECKLISTSTART% | allow/disallow state changes of checklist items (useful if you create summary pages of some items of different checklists) | =static="off"= |
 | template | %<nop>CLI%<br/>%<nop>CHECKLIST%<br/>%<nop>CHECKLISTSTART% | template name (see Plugin settings / Templates ) | =template="patchday"= |
 | text | %<nop>CLI% | text will be attached to the item and will be clickable  | =text="my first step"= |
-| tooltip | %<nop>CLI%<br/>%<nop>CHECKLIST%<br/>%<nop>CHECKLISTSTART% | sets the tooltip of the state icons (substituted variables: %<nop>STATE% - current state; %<nop>NEXTSTATE% - next state; %<nop>STATEICON% - state icon; %<nop>NEXTSTATEICON% - next state icon; %<nop>STATES% - comma separated list of all states; %<nop>STATECOUNT% - number of states; %<nop>LEGEND% - a legend of all states and state icons) | =tooltip="%<nop>STATE%"= |
+| timestamp | %<nop>CLI%<br/>%<nop>CHECKLIST%<br/>%<nop>CHECKLISTSTART% | timestamp format used for =statictopic= or tooltip substition (%<nop>TIMESTAMP%) | =timestamp="%<nop>SERVERTIME% - %<nop>TWIKIUSERNAME%, last state: %<nop>STATE%"= |
+| tooltip | %<nop>CLI%<br/>%<nop>CHECKLIST%<br/>%<nop>CHECKLISTSTART% | sets the tooltip of the state icons (substituted variables: %<nop>STATE% - current state; %<nop>NEXTSTATE% - next state; %<nop>STATEICON% - state icon; %<nop>NEXTSTATEICON% - next state icon; %<nop>STATES% - comma separated list of all states; %<nop>STATECOUNT% - number of states; %<nop>LEGEND% - a legend of all states and state icons; %<nop>TIMESTAMP% - the timestamp formated with =timestamp= attribute) | =tooltip="%<nop>STATE%"= |
 | tooltipbgcolor | %<nop>CLI%<br/>%<nop>CHECKLIST%<br/>%<nop>CHECKLISTSTART% | tooltip background color (=statesel= popup background color is also effected) | =tooltipbgcolor="%<nop>WEBBGCOLOR%"= |
 | tooltipfixleft | %<nop>CLI%<br/>%<nop>CHECKLIST%<br/>%<nop>CHECKLISTSTART% | offset to fix horizontal tooltip position | =tooltipfixleft="-163"= |
 | tooltipfixtop | %<nop>CLI%<br/>%<nop>CHECKLIST%<br/>%<nop>CHECKLISTSTART% | offset to fix vertical tooltip position | =tooltipfixtop="0"= |
@@ -391,8 +392,9 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 ---++ Plugin Info
 
 |  Plugin Author: | TWiki:Main.DanielRohde |
-|  Plugin Version: | v1.025 (15 Oct 2009) |
+|  Plugin Version: | v1.026 (BETA) |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  v1.026 (BETA) | TWiki:Main.DanielRohde: added timestamp feature requested by TWiki:Main.VickiBrown; fixed uninitialized value bugs; |
 |  v1.025 (15 Oct 2009) | TWiki:Main.DanielRohde: added documentation requested by TWiki:Main.PeterThoeny; added hide entries feature requested by Christian Holzmann; added log feature requested by TWiki:Main.VickiBrown |
 |  v1.024 (20 Apr 2007) | TWiki:Main.DanielRohde: fixed missing ')' in generated !JavaScript commands |
 |  v1.023 (1 Mar 2007) | TWiki:Main.DanielRohde: fixed minor anchor link bug reported by TWiki:Main.KeithHelfrich; fixed tooltip position bug |
