@@ -392,9 +392,9 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 ---++ Plugin Info
 
 |  Plugin Author: | TWiki:Main.DanielRohde |
-|  Plugin Version: | v1.026 (BETA) |
+|  Plugin Version: | v1.026 (21 Oct 2009) |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
-|  v1.026 (BETA) | TWiki:Main.DanielRohde: added timestamp feature requested by TWiki:Main.VickiBrown; fixed uninitialized value bugs; |
+|  v1.026 (21 Oct 2009) | TWiki:Main.DanielRohde: added timestamp feature requested by TWiki:Main.VickiBrown; fixed uninitialized value bugs; |
 |  v1.025 (15 Oct 2009) | TWiki:Main.DanielRohde: added documentation requested by TWiki:Main.PeterThoeny; added hide entries feature requested by Christian Holzmann; added log feature requested by TWiki:Main.VickiBrown |
 |  v1.024 (20 Apr 2007) | TWiki:Main.DanielRohde: fixed missing ')' in generated !JavaScript commands |
 |  v1.023 (1 Mar 2007) | TWiki:Main.DanielRohde: fixed minor anchor link bug reported by TWiki:Main.KeithHelfrich; fixed tooltip position bug |

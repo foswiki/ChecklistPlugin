@@ -37,14 +37,8 @@ use strict;
 
 $FoswikiCompatibility{endRenderingHandler} = 1.1;
 
-# This should always be $Rev$ so that Foswiki can determine the checked-in
-# status of the plugin. It is used by the build automation tools, so
-# you should leave it alone.
 $VERSION = '$Rev$';
 
-# This is a free-form string you can use to "name" your own plugin version.
-# It is *not* used by the build automation tools, but is reported as part
-# of the version number in PLUGINDESCRIPTIONS.
 $RELEASE = 'Cairo, Dakar, Edinburgh, ...';
 
 
@@ -174,7 +168,7 @@ sub initDefaults {
 		'notify'=> 0,
 		'static'=> 0,
 		'useajax'=>1,
-		'tooltip'=>'Click me to change my state from \'%STATE%\' to \'%NEXTSTATE%\'',
+		'tooltip'=>'Click me to change my state from \'%STATE%\' to \'%NEXTSTATE%\' <br/>t: %TIMESTAMP%',
 		'tooltipbgcolor'=>'%WEBBGCOLOR%',
 		'descr' => undef,
 		'_DEFAULT' => undef,
