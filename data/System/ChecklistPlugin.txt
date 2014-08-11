@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" date="1181039931" format="1.0" version="$Rev$"}%
+%META:TOPICINFO{author="ProjectContributor" date="1407719193" format="1.1" version="1"}%
 ---+!! Checklist Plugin
 
 <nop>ChecklistPlugin creates simple checklists. 
