@@ -1,16 +1,19 @@
-%META:TOPICINFO{author="ProjectContributor" date="1407719193" format="1.1" version="1"}%
+%META:TOPICINFO{author="ProjectContributor" comment="" date="1437864481" format="1.1" version="1"}%
+<!--
+   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
+-->
 ---+!! Checklist Plugin
 
-<nop>ChecklistPlugin creates simple checklists. 
+<nop>ChecklistPlugin creates simple checklists.
 It handles the tags %<nop>CLI% (<nop>CheckList Item), %<nop>CHECKLIST%, %<nop>CHECKLISTSTART%, %<nop>CHECKLISTEND%
 and depends on the Foswiki:Extensions.SmiliesPlugin (see [[#ChecklistPluginInfo][Plugin Info]]).
 
-A %<nop>CLI% tag creates a image button and a simple click on it changes the state of the image button. 
+A %<nop>CLI% tag creates a image button and a simple click on it changes the state of the image button.
 The default states are 'todo' (represented by a :-I image button) and 'done' (represented by a :ok: image button).
 
 If you put a bullet list or a ordered list between %<nop>CHECKLISTSTART% and %<nop>CHECKLISTEND% every bullet/ordered list item gets a checklist item.
 
-Every state change will be saved to a topic with name <i>&lt;YourTopicName&gt;</i><nop>ChecklistItemState. It is possible to 
+Every state change will be saved to a topic with name <i>&lt;YourTopicName&gt;</i><nop>ChecklistItemState. It is possible to
 define states (default: todo and done) and matching icons. You can also put more than one checklist into a topic.
 
 
@@ -28,11 +31,11 @@ To modify the states or state icons you can set it with %<nop>CHECKLISTSTART% or
 
 All tags can be used with attributes documented in the [[#ChecklistAttributes][Attributes section]].
 
-To create a link to the checklist item state topic you can put the following forced link on your checklist topic: 
+To create a link to the checklist item state topic you can put the following forced link on your checklist topic:
 <verbatim>
   [[%TOPIC%ChecklistItemState]]
 </verbatim>
-If you have installed the Foswiki:Extensions.SpreadSheetPlugin you can find a statistics on this item state topic. 
+If you have installed the Foswiki:Extensions.SpreadSheetPlugin you can find a statistics on this item state topic.
 And if you have installed the Foswiki:Extensions.EditTablePlugin you can edit the states directly on this topic.
 
 ---++ Usage Examples
@@ -43,66 +46,66 @@ To change the state of a checklist item just click on it.
 <tr><td align="center"> *You type:* </td><td align="center"> *You get: (simulated)* </td></tr>
 <tr><td colspan="2" bgcolor="#CCCCCC">
 *Example 1: Create a simple checklist:*
-	* =second step= icon was clicked one time
-	* =last step= icon was clicked two times
+   * =second step= icon was clicked one time
+   * =last step= icon was clicked two times
 </td></tr>
 <tr>
 <td bgcolor="#EEEEEE" valign="top">
 <verbatim>
 %CHECKLISTSTART%
-	1 first step
-	1 second step 
-	1 last step 
+   1 first step
+   1 second step
+   1 last step
 %CHECKLISTEND%
 </verbatim>
 </td>
 <td bgcolor="#EEEEEE" valign="top">
-	1 first step :-I
-	1 second step :ok:
-	1 last step :-I
+   1 first step :-I
+   1 second step :ok:
+   1 last step :-I
 </td>
 </tr>
 
 
 <tr><td colspan="2" bgcolor="#CCCCCC">
 *Example 2: Create a simple freehand checklist:*
-	* =second step= icon was clicked one time
-	* =last step= icon was clicked two times
+   * =second step= icon was clicked one time
+   * =last step= icon was clicked two times
 </td></tr>
 <tr>
 <td bgcolor="#EEEEEE" valign="top">
 <verbatim>
-	1 first step %CLI% 
-	1 second step %CLI% 
-	1 last step %CLI% 
+   1 first step %CLI%
+   1 second step %CLI%
+   1 last step %CLI%
 </verbatim>
 </td>
 <td bgcolor="#EEEEEE" valign="top">
-	1 first step :-I
-	1 second step :ok:
-	1 last step :-I
+   1 first step :-I
+   1 second step :ok:
+   1 last step :-I
 </td>
 </tr>
 <tr><td colspan="2" bgcolor="#CCCCCC">
 *Example 3: Create a checklist with three states and own icons:*
-	* =second step= icon was clicked one time
-	* and =third step= icon was clicked two times
+   * =second step= icon was clicked one time
+   * and =third step= icon was clicked two times
 </td></tr>
 <tr>
 <td bgcolor="#EEEEEE" valign="top">
 <verbatim>
 %CHECKLISTSTART{states="todo|doing|done" stateicons=":no:|:-I|8-)"}%
 
-	1 first step 
-	1 second step
-	1 third step 
+   1 first step
+   1 second step
+   1 third step
 %CHECKLISTEND%
 </verbatim>
 </td>
 <td bgcolor="#EEEEEE" valign="top">
-	1 first step :no:
-	1 second step :-I
-	1 third step 8-)
+   1 first step :no:
+   1 second step :-I
+   1 third step 8-)
 </td>
 </tr>
 <tr><td colspan="2" bgcolor="#CCCCCC"> *Example 4: Create two checklists on a topic:*
@@ -111,23 +114,23 @@ To change the state of a checklist item just click on it.
 <td bgcolor="#EEEEEE" valign="top">
 <verbatim>
 %CHECKLISTSTART{name="first checklist"}%
-	1 first step 
-	1 second step
+   1 first step
+   1 second step
 %CHECKLISTEND%
 
 %CHECKLIST{name="second checklist"}%
 
-	1 first step %CLI{name="second checklist"}% 
-	1 next step %CLI{name="second checklist"}% 
+   1 first step %CLI{name="second checklist"}%
+   1 next step %CLI{name="second checklist"}%
 </verbatim>
 </td>
 <td bgcolor="#EEEEEE" valign="top">
 
-	1 first step :-I
-	1 second step :-I
+   1 first step :-I
+   1 second step :-I
 
-	1 first step :-I
-	1 next step :-I
+   1 first step :-I
+   1 next step :-I
 </td>
 </tr>
 <tr><td colspan="2" bgcolor="#CCCCCC"> *Example 5: Create a checklist in a table:* </td></tr>
@@ -135,8 +138,8 @@ To change the state of a checklist item just click on it.
 <td bgcolor="#EEEEEE" valign="top">
 <verbatim>
 | *state* | *todo* |
-| %CLI%	| first step |
-| %CLI%	| second step |
+| %CLI%   | first step |
+| %CLI%   | second step |
 </verbatim>
 </td>
 <td bgcolor="#EEEEEE" valign="top">
@@ -153,7 +156,7 @@ To change the state of a checklist item just click on it.
 <div style="font-size: x-small;">
 <verbatim>
 %EDITTABLE{changerows="on" format="|label,0,#%SERVERTIME{$year$month$day$hour$min$sec}%|text,50|"}%%CHECKLISTSTART{name="list1"}%
-| *STATUS<br/>(click to change)* | *Item* | 
+| *STATUS<br/>(click to change)* | *Item* |
 | #2007Feb07093710 | testitem |
 
 %CHECKLISTEND%
@@ -170,7 +173,7 @@ To change the state of a checklist item just click on it.
 <td bgcolor="#EEEEEE" valign="top">
 
 %EDITTABLE{changerows="off" format="|label, 0, #%SERVERTIME{$year$month$day$hour$min$sec}% |text, 50|"}%
-| *STATUS<br>(click to change)* | *Item* | 
+| *STATUS<br>(click to change)* | *Item* |
 | :-I | testitem |
 
 
@@ -181,42 +184,42 @@ To change the state of a checklist item just click on it.
 </td>
 
 <tr><td colspan="2" bgcolor="#CCCCCC"> *Example 7: Create a legend and a reset button:*
-	* *Hint:* You can use multiple =%<nop>CHECKLIST%= tags to create more than one reset button or legend at any position of your checklist topic.
+   * *Hint:* You can use multiple =%<nop>CHECKLIST%= tags to create more than one reset button or legend at any position of your checklist topic.
  </td></tr>
 <tr>
 <td bgcolor="#EEEEEE" valign="top">
 <verbatim>
 %CHECKLISTSTART{showlegend="on" reset=":-I Reset"}%
-	1 first step 
-	1 next step
+   1 first step
+   1 next step
 %CHECKLISTEND%
 
 </verbatim>
 </td>
 <td bgcolor="#EEEEEE" valign="top">
-	1 first step :-I
-	1 next step :-I
+   1 first step :-I
+   1 next step :-I
 
 ( :-I - todo :ok: - done ) :-I Reset
 
 </td>
 </tr>
 <tr><td colspan="2" bgcolor="#CCCCCC"> *Example 8: Create a button to set all states in a checklist to =done=:*
-	* the reset button was clicked
-	* *Hint:* You can use multiple =%<nop>CHECKLIST%= tags to create more than one reset button.
+   * the reset button was clicked
+   * *Hint:* You can use multiple =%<nop>CHECKLIST%= tags to create more than one reset button.
 </td></tr>
 <tr>
 <td bgcolor="#EEEEEE" valign="top">
 <verbatim>
-	1 first step %CLI% 
-	1 next step %CLI% 
+   1 first step %CLI%
+   1 next step %CLI%
 
 %CHECKLIST{reset=":ok: set all done @done"}%
 </verbatim>
 </td>
 <td bgcolor="#EEEEEE" valign="top">
-	1 first step :ok:
-	1 next step :ok:
+   1 first step :ok:
+   1 next step :ok:
 
 :ok: set all done
 
@@ -224,25 +227,25 @@ To change the state of a checklist item just click on it.
 </tr>
 
 <tr><td colspan="2" bgcolor="#CCCCCC"> *Example 9: Insert new items in an existing checklist without state lost:*
-	* =first step= and =second step= was clicked before new items (=first new inserted item= and =second new inserted item=) were added
-	* *Hint:* You can put a =&lt;whitespace&gt;#&lt;ID&gt;= instead of =%<nop>CLI{id="&lt;ID&gt;"}%= into a bullet or ordered list item to add/insert a checklist item with own id. This works only between =%<nop>CHECKLISTSTART%...%<nop>CHECKLISTEND%=.
+   * =first step= and =second step= was clicked before new items (=first new inserted item= and =second new inserted item=) were added
+   * *Hint:* You can put a =&lt;whitespace&gt;#&lt;ID&gt;= instead of =%<nop>CLI{id="&lt;ID&gt;"}%= into a bullet or ordered list item to add/insert a checklist item with own id. This works only between =%<nop>CHECKLISTSTART%...%<nop>CHECKLISTEND%=.
 </td></tr>
 <tr>
 <td bgcolor="#EEEEEE" valign="top">
 <verbatim>
 %CHECKLISTSTART%
-	1 first step
-		1 first new inserted item #MyFirstInsertedItem
-	1 second step  
-		1 second new inserted item %CLI{id="MySecondInsertedItem"}%
+   1 first step
+      1 first new inserted item #MyFirstInsertedItem
+   1 second step
+      1 second new inserted item %CLI{id="MySecondInsertedItem"}%
 %CHECKLISTEND%
 </verbatim>
 </td>
 <td bgcolor="#EEEEEE" valign="top">
-	1 first step :ok:
-		1 first new inserted item :-I
-	1 next step :ok:
-		1 second new inserted item :-I
+   1 first step :ok:
+      1 first new inserted item :-I
+   1 next step :ok:
+      1 second new inserted item :-I
 </td>
 </tr>
 
@@ -250,8 +253,8 @@ To change the state of a checklist item just click on it.
 
 #ChecklistAttributes
 ---++ Attributes
-Usage: 
-<br/> %<nop>CLI{attribute1="value1" attribute2="value2" ...}% 
+Usage:
+<br/> %<nop>CLI{attribute1="value1" attribute2="value2" ...}%
 <br/> or %<nop>CHECKLIST{attribute1="value1" attribute2="value2" ...}%
 <br/> or %<nop>CHECKLISTSTART{attribute1="value1" attribute2="value2" ...}%
 
@@ -275,12 +278,12 @@ Examples:
 | name | %<nop>CLI%<br/>%<nop>CHECKLIST%<br/>%<nop>CHECKLISTSTART% | a naming context (default: =_default=) - useful and recommended if you define more than one checklist on a topic (%X% if you use it in =%<nop>CHECKLIST%= you must use it in all related =%<nop>CLI%= tags too) | =name="mychecklist1"= |
 | notify | %<nop>CLI%<br/>%<nop>CHECKLIST%<br/>%<nop>CHECKLISTSTART% | enables/disables mail notification if a item state was changed | =notify="off"= |
 | pos | %<nop>CHECKLISTSTART% | defines the reset button and legend position (default: =bottom=); if you use another value than ="top"= the button position falls back to default | =pos="bottom"= |
-| reset | %<nop>CHECKLIST%<br/>%<nop>CHECKLISTSTART% | it enables a reset image button with a given text or icon (default: undefined); if you put a =@&lt;state&gt;= into the reset value, you can reset a checklist to the given =&lt;state&gt;=, e.g: =reset="@done <nop>:ok: set all done"=; if you put a =@STATESEL= into the =reset= value you get a state selection popup with all states | =reset="Reset all @STATESEL"= | 
+| reset | %<nop>CHECKLIST%<br/>%<nop>CHECKLISTSTART% | it enables a reset image button with a given text or icon (default: undefined); if you put a =@&lt;state&gt;= into the reset value, you can reset a checklist to the given =&lt;state&gt;=, e.g: =reset="@done <nop>:ok: set all done"=; if you put a =@STATESEL= into the =reset= value you get a state selection popup with all states | =reset="Reset all @STATESEL"= |
 | showlegend | %<nop>CHECKLIST%<br/>%<nop>CHECKLISTSTART% | if you set it to ="on"= a states legend with icons will be displayed (default: =off=),<br/> e.g: ( :-I - todo :ok: - done) | =showlegend="off"= |
 | states | %<nop>CLI%<br/>%<nop>CHECKLIST%<br/>%<nop>CHECKLISTSTART% | all known states (default: =todo&brvbar;done=; a list separated by a ='&brvbar;'=) | =states="todo&brvbar;done"= |
 | stateicons | %<nop>CLI%<br/>%<nop>CHECKLIST%<br/>%<nop>CHECKLISTSTART% | icons for all states separated by a ='&brvbar;'= (default: =<nop>:-I&brvbar;<nop>:ok:=); if you use common variables like =%<nop>Y%= in stateicons you have to use the =&lt;nop&gt;= tag after the first =%=, e.g: =%&lt;nop&gt;Y%=  | =stateicons="<nop>:-I&brvbar;<nop>:ok:"= |
 | statesel | %<nop>CLI%<br/>%<nop>CHECKLIST%<br/>%<nop>CHECKLISTSTART% | enables/disables state selection popup (default: off) | =statesel="on"= |
-| statetopic | %<nop>CLI%<br/>%<nop>CHECKLIST%<br/>%<nop>CHECKLISTSTART% | set the checklist item state topic (default: =&lt;<nop>YourTopicName&gt;ChecklistItemState=) | =statetopic="MyItemStateTopic"= | 
+| statetopic | %<nop>CLI%<br/>%<nop>CHECKLIST%<br/>%<nop>CHECKLISTSTART% | set the checklist item state topic (default: =&lt;<nop>YourTopicName&gt;ChecklistItemState=) | =statetopic="MyItemStateTopic"= |
 | static | %<nop>CLI%<br/>%<nop>CHECKLIST%<br/>%<nop>CHECKLISTSTART% | allow/disallow state changes of checklist items (useful if you create summary pages of some items of different checklists) | =static="off"= |
 | template | %<nop>CLI%<br/>%<nop>CHECKLIST%<br/>%<nop>CHECKLISTSTART% | template name (see Plugin settings / Templates ) | =template="patchday"= |
 | text | %<nop>CLI% | text will be attached to the item and will be clickable  | =text="my first step"= |
@@ -293,61 +296,62 @@ Examples:
 ---++ Examples
 Use this examples to check your installation:
 
-	1 %CLI{text="first step"}%
-	1 %CLI{text="next step"}%
+   1 %CLI{text="first step"}%
+   1 %CLI{text="next step"}%
 
-	| *State* | *TODO* |
-	| %CLI% | first step |
-	| %CLI% | next step |
+   | *State* | *TODO* |
+   | %CLI% | first step |
+   | %CLI% | next step |
 
 %CHECKLISTSTART{name="generated" template="patchday"}%
-	* System 1
-	* System 2
+   * System 1
+   * System 2
 %CHECKLISTEND%
 
 [[%TOPIC%ChecklistItemState]]
 ---++ Plugin Settings
 
-Plugin settings are stored as preferences variables. To reference a plugin setting write ==%<nop>&lt;plugin&gt;_&lt;setting&gt;%==, i.e. ==%<nop>INTERWIKIPLUGIN_SHORTDESCRIPTION%==
+<div class="foswikiHelp">%X% This extension no longer processes settings from
+this topic. Settings should be applied in  %USERSWEB%.SitePreferences, or in
+the WebPreferences topics.</div>
 
-	* One line description, is shown in the %SYSTEMWEB%.TextFormattingRules topic:
-		* Set SHORTDESCRIPTION = Create simple checklists.
+Plugin settings are stored as preferences variables. To reference a plugin setting write ==%<nop>&lt;plugin&gt;_&lt;setting&gt;%==, i.e. ==%<nop>CHECKLISTPLUGIN_STATES%==
 
-	* Debug plugin: (See output in =data/debug.txt=)
-		* Set DEBUG = 0
+   * Debug plugin: (See output in =working/logs/debug.log=)
+      * Set CHECKLISTPLUGIN_DEBUG = 0
 
-	* Setup states and icons (defaults: =todo&brvbar;done= and =<nop>:-I&brvbar;<nop>:ok:=; remove # for setup):
-		* # Set STATES = todo|doing|done
-		* # Set STATEICONS = :-(|:-I|:ok:	  
+   * Setup states and icons (defaults: =todo&brvbar;done= and =<nop>:-I&brvbar;<nop>:ok:=; remove # for setup):
+      * Set CHECKLISTPLUGIN_STATES = todo|doing|done
+      * Set CHECKLISTPLUGIN_STATEICONS = :-(|:-I|:ok:
 
-	* Enables 'reset' button (default: disabled with undefined value; value is a text or icon):
-		* # Set RESET = [Reset all]
+   * Enables 'reset' button (default: disabled with undefined value; value is a text or icon):
+      * Set CHECKLISTPLUGIN_RESET = [Reset all]
 
-	* Enables/Disables state legend (default: =off=)
-		* # Set SHOWLEGEND = on
+   * Enables/Disables state legend (default: =off=)
+      * Set CHECKLISTPLUGIN_SHOWLEGEND = off
 
-	* Enables/Disables link anchors (default: =on=)
-		* # Set ANCHORS = off
+   * Enables/Disables link anchors (default: =on=)
+      * Set CHECKLISTPLUGIN_ANCHORS = on
 
-	* Set unknown parameter message (default: =%<nop>RED% Sorry, some parameters are unknown: %<nop>UNKNOWNPARAMSLIST% %<nop>ENDCOLOR% &lt;br/&gt; Allowed parameters are (see <nop>%SYSTEMWEB%.ChecklistPlugin topic for more details): %<nop>KNOWNPARAMSLIST%= </verbatim>)
-		* # Set UNKNOWNPARAMSMSG = %RED% Following parameter(s) is/are unknown: %UNKNOWNPARAMSLIST% %ENDCOLOR%
+   * Set unknown parameter message (default: =%<nop>RED% Sorry, some parameters are unknown: %<nop>UNKNOWNPARAMSLIST% %<nop>ENDCOLOR% &lt;br/&gt; Allowed parameters are (see <nop>%SYSTEMWEB%.ChecklistPlugin topic for more details): %<nop>KNOWNPARAMSLIST%= </verbatim>)
+      * Set CHECKLISTPLUGIN_UNKNOWNPARAMSMSG = %RED% Following parameter(s) is/are unknown: %UNKNOWNPARAMSLIST% %ENDCOLOR%
 
-	* Enables/Disables mail notification (default: =off=; old bevavior: =on=)
-		* # Set NOTIFY = on
-	
-	* Enables/Disables AJAX feature (<nop>JavaScript based item state changes):
-		* # Set USEAJAX = off
+   * Enables/Disables mail notification (default: =off=; old bevavior: =on=)
+      * Set CHECKLISTPLUGIN_NOTIFY = off
 
-	* Sets the icon state tooltip:
-		* # Set TOOLTIP = Click me to change my state '%STATE%' to '%NEXTSTATE'.
+   * Enables/Disables AJAX feature (<nop>JavaScript based item state changes):
+      * Set CHECKLISTPLUGIN_USEAJAX = on
 
-	* Sets offsets to fix horizontal/vertical tooltip position:
-		* # Set TOOLTIPFIXLEFT = 0
-		* # Set TOOLTIPFIXTOP = 0
+   * Sets the icon state tooltip:
+      * Set CHECKLISTPLUGIN_TOOLTIP = Click me to change my state '%STATE%' to '%NEXTSTATE%'.
 
-	* Enables/Disables state selection popup (default: =off=):
-		* # Set STATESEL = on
-  
+   * Sets offsets to fix horizontal/vertical tooltip position:
+      * Set CHECKLISTPLUGIN_TOOLTIPFIXLEFT = 0
+      * Set CHECKLISTPLUGIN_TOOLTIPFIXTOP = 0
+
+   * Enables/Disables state selection popup (default: =off=):
+      * Set CHECKLISTPLUGIN_STATESEL = off
+
 ---+++ Templates
 Templates allows you to setup all plugin attributes bounded to a template name. Only uppercase letters are allowed for a <i>template name</i>.
 
@@ -357,43 +361,26 @@ Template Usage: =%<nop>CLI{template="<i>template name</i>"}%= (the same for =%<n
 
 Examples:
 
-	* Default
-		* Set TEMPLATE_DEFAULT_STATEICONS = :-I|:-)
-		* Set TEMPLATE_DEFAULT_STATES = todo|done
- 
-	* Patchday
-		* Set TEMPLATE_PATCHDAY_STATEICONS = :no:|:yes:|:skull:|%<nop>Y%
-		* Set TEMPLATE_PATCHDAY_STATES = notpatched|patched|reboot|done
-		* Set TEMPLATE_PATCHDAY_CLIPOS = left
-		* Set TEMPLATE_PATCHDAY_TOOLTIP = Click me to change my state %STATE% %STATEICON% to %NEXTSTATE% %NEXTSTATEICON%.<br/> There are %STATECOUNT% states (%STATES%). <br/> %LEGEND%
+   * Default
+      * Set TEMPLATE_DEFAULT_STATEICONS = :-I|:-)
+      * Set TEMPLATE_DEFAULT_STATES = todo|done
+
+   * Patchday
+      * Set TEMPLATE_PATCHDAY_STATEICONS = :no:|:yes:|:skull:|%<nop>Y%
+      * Set TEMPLATE_PATCHDAY_STATES = notpatched|patched|reboot|done
+      * Set TEMPLATE_PATCHDAY_CLIPOS = left
+      * Set TEMPLATE_PATCHDAY_TOOLTIP = Click me to change my state %STATE% %STATEICON% to %NEXTSTATE% %NEXTSTATEICON%.<br/> There are %STATECOUNT% states (%STATES%). <br/> %LEGEND%
 
 ---++ Plugin Installation Instructions
-
-__Note:__ You do not need to install anything on the browser to use this plugin. The following instructions are for the administrator who installs the plugin on the server where TWiki is running. 
-
-	1 Download the ZIP file from the Plugin web (see below)
-	1 %X% if you upgrade this plugin it is a good idea to backup your old plugin setups, e.g.: ==cp data/System/%TOPIC%.txt data/System/%TOPIC%Old.txt== 
-	1 Unzip ==%TOPIC%.zip== in your twiki installation directory. Content:
-	  | *File:* | *Description:* |
-	  | ==data/System/%TOPIC%.txt== | Plugin topic |
-	  | ==data/System/VarCHECKLIST.txt== | documentation |
-	  | ==data/System/VarCHECKLISTSTART.txt== | documentation |
-	  | ==data/System/VarCHECKLISTEND.txt== | documentation |
-	  | ==data/System/VarCLI.txt== | documentation | 
-	  | ==lib/Foswiki/Plugins/%TOPIC%.pm== | Plugin Perl module |
-	  | ==pub/System/%TOPIC%/itemstatechange.js== | <nop>JavaScript/AJAX module |
-	1 Linux/UNIX: Don't forget to change owner of data/System/%TOPIC%.txt to your WWW server uid/gid (e.g: chown wwwrun:wwwrun ...).
-	1 Configure the Plugin:
-		* Run the [[%SCRIPTURL%/configure%SCRIPTSUFFIX%][configure]] script to enable the Plugin
-		* Change the Plugin settings as needed
-	1 Test if the installation was successful: see Examples section 
+%$INSTALL_INSTRUCTIONS%
 
 #ChecklistPluginInfo
 ---++ Plugin Info
 
-|  Plugin Author: | TWiki:Main.DanielRohde |
-|  Plugin Version: | v1.026 (21 Oct 2009) |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  v1.200 (25 Jul 2015) | Foswikitask:Item1930: Use relative pub URL paths<br/> \
+                          Foswikitask:Item12141: Allow use of arbitrary %ICON macros in graphics<br/> \
+                          Foswikitask:Item13557: Update for Foswiki 2.0 |
 |  v1.026 (21 Oct 2009) | TWiki:Main.DanielRohde: added timestamp feature requested by TWiki:Main.VickiBrown; fixed uninitialized value bugs; |
 |  v1.025 (15 Oct 2009) | TWiki:Main.DanielRohde: added documentation requested by TWiki:Main.PeterThoeny; added hide entries feature requested by Christian Holzmann; added log feature requested by TWiki:Main.VickiBrown |
 |  v1.024 (20 Apr 2007) | TWiki:Main.DanielRohde: fixed missing ')' in generated !JavaScript commands |
@@ -409,28 +396,29 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 |  v1.014 (6 Feb 2006) | TWiki:Main.DanielRohde: fixed mod_perl bug; fixed deprecated handler problem |
 |  v1.013 (3 Feb 2006) | TWiki:Main.DanielRohde: fixed anchor bug; fixed multiple save bug (performance improvement); fixed reset bugs in named checklists |
 |  v1.012 (2 Feb 2006) | TWiki:Main.DanielRohde: fixed a minor statetopic bug; improved autogenerated checklists (item insertion without state lost); improved docs |
-|  v1.011 (23 Jan 2006) | TWiki:Main.DanielRohde: fixed documentation; fixed reset bug (that comes with URL parameter bug fix); added statetopic attribute | 
+|  v1.011 (23 Jan 2006) | TWiki:Main.DanielRohde: fixed documentation; fixed reset bug (that comes with URL parameter bug fix); added statetopic attribute |
 |  v1.010 (28 Nov 2005) | TWiki:Main.DanielRohde: fixed URL parameter bugs (preserve URL parameters; URL encoding); used CGI module to generate HTML; fixed table sorting bug in a <nop>ChecklistItemState topic |
 |  v1.009 (25 Nov 2005) | TWiki:Main.DanielRohde: fixed stateicons handling; fixed Foswiki:Extensions/TablePlugin sorting problem |
 |  v1.008 (9 Nov 2005) | TWiki:Main.DanielRohde: fixed docs; changed default text positioning (text attribute); allowed common variable usage in stateicons attribute; fixed multiple checklists bugs |
-|  v1.007 (7 Nov 2005) | TWiki:Main.DanielRohde: added new feature (CHECKLISTSTART/END tags, attributes: clipos, pos); fixed bugs | 
+|  v1.007 (7 Nov 2005) | TWiki:Main.DanielRohde: added new feature (CHECKLISTSTART/END tags, attributes: clipos, pos); fixed bugs |
 |  v1.006 (4 Nov 2005) | TWiki:Main.DanielRohde: added new attribute (useforms); fixed legend bug; fixed HTML encoding bug |
 |  v1.005 (2 Nov 2005) | TWiki:Main.DanielRohde: fixed major bug (edit lock); fixed html encoding; improved doc |
 |  v1.004 (1 Nov 2005) | TWiki:Main.DanielRohde: added unknown parameter handling (new attribute: unknownparamsmsg); added 'set to a given state' feature; changed reset behavior; fixed typos |
 |  v1.003 (1 Nov 2005) | TWiki:Main.DanielRohde: added attributes (showlegend, anchors); fixed states bug (illegal characters in states option); improved documentation (thanx TWiki:Main.PeterThoeny); fixed typos; fixed some minor bugs|
 |  v1.002 (31 Oct 2005) | TWiki:Main.DanielRohde: fixed cache problems; fixed HTML/URL encoding bugs; fixed reload bug; fixed reset image button bug; added anchors|
-|  v1.001 (27 Oct 2005) | TWiki:Main.DanielRohde: added new features ('reset','text' attributes); fixed major 'name' attribute bug; fixed documentation bugs | 
+|  v1.001 (27 Oct 2005) | TWiki:Main.DanielRohde: added new features ('reset','text' attributes); fixed major 'name' attribute bug; fixed documentation bugs |
 |  v1.000 (27 Oct 2005): | TWiki:Main.DanielRohde: Initial version |
-|  TWiki Dependency: | $TWiki::Plugins::VERSION 1.024 |
-|  CPAN Dependencies: | none |
-|  Other Dependencies: | Foswiki:Extensions.SmiliesPlugin |
-|  Perl Version: | 5.005 |
-|  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Foswiki:Extensions/Benchmark: | %SYSTEMWEB%.GoodStyle 97%, %SYSTEMWEB%.FormattedSearch 99%, %TOPIC% 92% |
-|  Plugin Home: | http://foswiki.org/Extensions/%TOPIC% |
-|  Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev |
 
-__Related Topics:__ %SYSTEMWEB%.SitePreferences, [[%SYSTEMWEB%.Plugins][Plugins]]
+__Related Topics:__ %USERSWEB%.SitePreferences, [[%SYSTEMWEB%.Plugins][Plugins]]
 
 -- TWiki:Main.DanielRohde - 27 Oct 2005
 
+%META:FORM{name="PackageForm"}%
+%META:FIELD{name="Author" title="Author" value="TWiki:Main.DanielRohde"}%
+%META:FIELD{name="Version" title="Version" value="%25$VERSION%25"}%
+%META:FIELD{name="Release" title="Release" value="%25$RELEASE%25"}%
+%META:FIELD{name="Repository" title="Repository" value="https://github.com/foswiki/ChecklistPlugin"}%
+%META:FIELD{name="Copyright" title="Copyright" value="&copy; 2005-2009 Daniel Rohde%BR% &copy; 2008-2015 Foswiki Contributors"}%
+%META:FIELD{name="License" title="License" value="[[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]]"}%
+%META:FIELD{name="Home" title="Home" value="http://foswiki.org/Extensions/ChecklistPlugin"}%
+%META:FIELD{name="Support" title="Support" value="http://foswiki.org/Support/ChecklistPlugin"}%
