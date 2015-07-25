@@ -337,7 +337,9 @@ sub initNamedDefaults {
             &Foswiki::Func::getPreferencesValue(
                 "\U${pluginName}_TEMPLATE_${tmplName}_${default}\E")
               || undef
-        ) unless ( !defined $tmplName ) || ( defined $params{$default} );
+          )
+          unless ( !defined $tmplName )
+          || ( defined $params{$default} );
 
     }
 }
@@ -729,10 +731,11 @@ sub handleDescription {
     $textAfter =~ /^([^<\n\%]*)/;
     $textAfter = $1 if defined $1;
 
-    my $descr =
-      $$idMapRef{ $options{'name'} }{ $options{'id'}
+    my $descr = $$idMapRef{ $options{'name'} }{
+          $options{'id'}
         ? $options{'id'}
-        : $namedIds{ $options{'name'} } }{'descr'};
+        : $namedIds{ $options{'name'} }
+    }{'descr'};
     unless ( ( defined $options{'descr'} )
         || ( ( defined $descr ) && ( $descr !~ /^\s*$/ ) ) )
     {
@@ -886,7 +889,8 @@ sub doChecklistItemStateChange {
     my $rns = (
         defined $nextstate
         ? $nextstate
-        : ( &getNextState( $n, $$idMapRef{$n}{$id}{'state'} ) )[0] );
+        : ( &getNextState( $n, $$idMapRef{$n}{$id}{'state'} ) )[0]
+    );
 
     $$idMapRef{$n}{$id}{'state'} = $rns;
     $$idMapRef{$n}{$id}{'timestamp'} =
@@ -1176,7 +1180,11 @@ sub htmlEncode {
 # ========================
 sub substIllegalChars {
     my ($txt) = @_;
-    $txt = join( '', grep( $Foswiki::regex{mixedAlphaNum}, split( '', $txt ) ) )
+    return $txt if ( $txt =~ m/^[$Foswiki::regex{mixedAlphaNum}\-._]+$/ );
+
+    # strip out anything not-matching
+    $txt = join( '',
+        grep( /[$Foswiki::regex{mixedAlphaNum}\-._]/, split( '', $txt ) ) )
       if defined $txt;
     return $txt;
 }
