@@ -1,0 +1,10 @@
+*,v
+*,pfv
+*.gz
+/ChecklistPlugin.md5
+/ChecklistPlugin.sha1
+/ChecklistPlugin.tgz
+/ChecklistPlugin.txt
+/ChecklistPlugin.zip
+/ChecklistPlugin_installer
+/ChecklistPlugin_installer.pl
