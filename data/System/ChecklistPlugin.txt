@@ -378,6 +378,7 @@ Examples:
 ---++ Plugin Info
 
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  v1.201 (5 Sep 2015) | Foswikitask:Item13664: Escape braces in regular expressions for compatibility with Perl 5.22+. |
 |  v1.200 (25 Jul 2015) | Foswikitask:Item1930: Use relative pub URL paths<br/> \
                           Foswikitask:Item12141: Allow use of arbitrary %ICON macros in graphics<br/> \
                           Foswikitask:Item13557: Update for Foswiki 2.0 |

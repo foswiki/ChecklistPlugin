@@ -35,8 +35,10 @@ use vars qw(
 use strict;
 use warnings;
 
-our $VERSION           = '1.200';
-our $RELEASE           = '25 Jul 2015';
+our $VERSION = '1.201';
+our $RELEASE = '04 Sep 2015';
+our $SHORTDESCRIPTION =
+  "Maintain a list of checklist items with a simple mouse click.";
 our $NO_PREFS_IN_TOPIC = 1;
 
 my $defaultsSet = 0;
@@ -128,10 +130,10 @@ sub handleAllTags {
     $_[0] =~
 s/%CHECKLISTSTART%(.*?)%CHECKLISTEND%/&handleAutoChecklist("",$1,$_[0])/sge;
     $_[0] =~
-s/%CHECKLISTSTART{(.*?)}%(.*?)%CHECKLISTEND%/&handleAutoChecklist($1,$2,$_[0])/sge;
+s/%CHECKLISTSTART\{(.*?)\}%(.*?)%CHECKLISTEND%/&handleAutoChecklist($1,$2,$_[0])/sge;
     $_[0] =~ s/%CHECKLIST%/&handleChecklist("",$_[0])/ge;
-    $_[0] =~ s/%CHECKLIST{(.*?)}%/&handleChecklist($1,$_[0])/sge;
-    $_[0] =~ s/%CLI({(.*?)})?%/&handleChecklistItem($2,$_[0],$-[0],$+[0])/sge;
+    $_[0] =~ s/%CHECKLIST\{(.*?)\}%/&handleChecklist($1,$_[0])/sge;
+    $_[0] =~ s/%CLI(\{(.*?)\})?%/&handleChecklistItem($2,$_[0],$-[0],$+[0])/sge;
 
     ##$_[0] =~ s/([^\n\%]*)%CLI({(.*?)})?%([^\n\%]*)/$1.&handleChecklistItem($3,$_[0],$1,$4).$4/sge;
 }
@@ -602,8 +604,8 @@ sub substItemLine {
     $state = $states[0] unless defined $state;
     my $class = "clp_hide_" . $options{name} . "_" . $state;
 
-    if ( $l =~ /\%CLI{.*?}\%/ ) {
-        $l =~ s/\%CLI{(.*?)}\%/\%CLI{$1 $attribs}\%/g;
+    if ( $l =~ /\%CLI\{.*?\}\%/ ) {
+        $l =~ s/\%CLI\{(.*?)\}\%/\%CLI{$1 $attribs}\%/g;
         $l =~ s/^/<span id="$id" name="$name" class="$class">/;
         $l =~ s/$/<\/span>/;
     }
