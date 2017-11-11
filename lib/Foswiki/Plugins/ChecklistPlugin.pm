@@ -36,7 +36,7 @@ use strict;
 use warnings;
 
 our $VERSION = '1.201';
-our $RELEASE = '04 Sep 2015';
+our $RELEASE = '10 Nov 2017';
 our $SHORTDESCRIPTION =
   "Maintain a list of checklist items with a simple mouse click.";
 our $NO_PREFS_IN_TOPIC = 1;
