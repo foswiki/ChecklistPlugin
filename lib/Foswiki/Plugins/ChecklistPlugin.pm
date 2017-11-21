@@ -3,7 +3,7 @@
 # Copyright (C) 2000-2003 Andrea Sterbini, a.sterbini@flashnet.it
 # Copyright (C) 2001-2004 Peter Thoeny, peter@thoeny.com
 # Copyright (C) 2005-2009 Daniel Rohde
-# Copyright (C) 2009-2015 Foswiki Contributors
+# Copyright (C) 2009-2017 Foswiki Contributors
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -35,8 +35,8 @@ use vars qw(
 use strict;
 use warnings;
 
-our $VERSION = '1.201';
-our $RELEASE = '10 Nov 2017';
+our $VERSION = '1.202';
+our $RELEASE = '20 Nov 2017';
 our $SHORTDESCRIPTION =
   "Maintain a list of checklist items with a simple mouse click.";
 our $NO_PREFS_IN_TOPIC = 1;
@@ -1292,7 +1292,7 @@ sub saveLog {
       getLogEntry( $options{logformat}, $id, $n, $laststate, $nextstate );
 
     my $meta = "";
-    while ( $logtopictext =~ s /(%META(:[^{]+){[^}]+}%)//s ) {
+    while ( $logtopictext =~ s /(%META(:[^{]+)\{[^}]+}%)//s ) {
         $meta .= $1;
     }
     $logtopictext .= $logentry if $options{logpos} !~ /prepend/i;
