@@ -1,12 +1,15 @@
-%META:TOPICINFO{author="ProjectContributor" comment="" date="1511231561" format="1.1" version="1"}%
+%META:TOPICINFO{author="ProjectContributor" comment="" date="1528715391" format="1.1" version="1"}%
 <!--
    * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
 -->
 ---+!! Checklist Plugin
 
+%TOC%
+
+---++ Description
 <nop>ChecklistPlugin creates simple checklists.
 It handles the tags %<nop>CLI% (<nop>CheckList Item), %<nop>CHECKLIST%, %<nop>CHECKLISTSTART%, %<nop>CHECKLISTEND%
-and depends on the Foswiki:Extensions.SmiliesPlugin (see [[#ChecklistPluginInfo][Plugin Info]]).
+and depends on the Foswiki:Extensions.SmiliesPlugin.
 
 A %<nop>CLI% tag creates a image button and a simple click on it changes the state of the image button.
 The default states are 'todo' (represented by a :-I image button) and 'done' (represented by a :ok: image button).
@@ -17,9 +20,6 @@ Every state change will be saved to a topic with name <i>&lt;YourTopicName&gt;</
 define states (default: todo and done) and matching icons. You can also put more than one checklist into a topic.
 
 
-%TOC%
-
-------
 ---++ Syntax Rules
 
 Just type a %<nop>CLI% (<nop>CheckList Item) into a topic to create a single checklist item. A simple mouse click on it will change
@@ -32,7 +32,7 @@ To modify the states or state icons you can set it with %<nop>CHECKLISTSTART% or
 All tags can be used with attributes documented in the [[#ChecklistAttributes][Attributes section]].
 
 To create a link to the checklist item state topic you can put the following forced link on your checklist topic:
-<verbatim>
+<verbatim class="tml">
   [[%TOPIC%ChecklistItemState]]
 </verbatim>
 If you have installed the Foswiki:Extensions.SpreadSheetPlugin you can find a statistics on this item state topic.
@@ -42,58 +42,55 @@ And if you have installed the Foswiki:Extensions.EditTablePlugin you can edit th
 
 To change the state of a checklist item just click on it.
 
-<table>
-<tr><td align="center"> *You type:* </td><td align="center"> *You get: (simulated)* </td></tr>
-<tr><td colspan="2" bgcolor="#CCCCCC">
-*Example 1: Create a simple checklist:*
+---+++ Example 1: Create a simple checklist
+
    * =second step= icon was clicked one time
    * =last step= icon was clicked two times
-</td></tr>
-<tr>
-<td bgcolor="#EEEEEE" valign="top">
-<verbatim>
+
+*You type:*
+
+<verbatim class="tml">
 %CHECKLISTSTART%
    1 first step
    1 second step
    1 last step
 %CHECKLISTEND%
 </verbatim>
-</td>
-<td bgcolor="#EEEEEE" valign="top">
+
+*You get:*
+
    1 first step :-I
    1 second step :ok:
    1 last step :-I
-</td>
-</tr>
 
 
-<tr><td colspan="2" bgcolor="#CCCCCC">
-*Example 2: Create a simple freehand checklist:*
+---+++ Example 2: Create a simple freehand checklist
+
    * =second step= icon was clicked one time
    * =last step= icon was clicked two times
-</td></tr>
-<tr>
-<td bgcolor="#EEEEEE" valign="top">
-<verbatim>
+
+*You type:*
+
+<verbatim class="tml">
    1 first step %CLI%
    1 second step %CLI%
    1 last step %CLI%
 </verbatim>
-</td>
-<td bgcolor="#EEEEEE" valign="top">
+
+*You get:*
+
    1 first step :-I
    1 second step :ok:
    1 last step :-I
-</td>
-</tr>
-<tr><td colspan="2" bgcolor="#CCCCCC">
-*Example 3: Create a checklist with three states and own icons:*
+
+---+++ Example 3: Create a checklist with three states and own icons
+
    * =second step= icon was clicked one time
    * and =third step= icon was clicked two times
-</td></tr>
-<tr>
-<td bgcolor="#EEEEEE" valign="top">
-<verbatim>
+
+*You type:*
+
+<verbatim class="tml">
 %CHECKLISTSTART{states="todo|doing|done" stateicons=":no:|:-I|8-)"}%
 
    1 first step
@@ -101,18 +98,19 @@ To change the state of a checklist item just click on it.
    1 third step
 %CHECKLISTEND%
 </verbatim>
-</td>
-<td bgcolor="#EEEEEE" valign="top">
+
+*You get:*
+
    1 first step :no:
    1 second step :-I
    1 third step 8-)
-</td>
-</tr>
-<tr><td colspan="2" bgcolor="#CCCCCC"> *Example 4: Create two checklists on a topic:*
-<br/> (%X% every =%<nop>CHECKLIST%= and every =%<nop>CLI%= tag needs a =name= attribute)</td></tr>
-<tr>
-<td bgcolor="#EEEEEE" valign="top">
-<verbatim>
+
+---+++ Example 4: Create two checklists on a topic:
+%X% every =%<nop>CHECKLIST%= and every =%<nop>CLI%= tag needs a =name= attribute
+
+*You type:*
+
+<verbatim class="tml">
 %CHECKLISTSTART{name="first checklist"}%
    1 first step
    1 second step
@@ -123,38 +121,37 @@ To change the state of a checklist item just click on it.
    1 first step %CLI{name="second checklist"}%
    1 next step %CLI{name="second checklist"}%
 </verbatim>
-</td>
-<td bgcolor="#EEEEEE" valign="top">
+
+*You get:*
 
    1 first step :-I
    1 second step :-I
 
    1 first step :-I
    1 next step :-I
-</td>
-</tr>
-<tr><td colspan="2" bgcolor="#CCCCCC"> *Example 5: Create a checklist in a table:* </td></tr>
-<tr>
-<td bgcolor="#EEEEEE" valign="top">
-<verbatim>
+
+---+++ Example 5: Create a checklist in a table
+
+*You type:*
+
+<verbatim class="tml">
 | *state* | *todo* |
 | %CLI%   | first step |
 | %CLI%   | second step |
 </verbatim>
-</td>
-<td bgcolor="#EEEEEE" valign="top">
+
+*You get:*
+
 | *state* | *todo* |
 | :-I | first step |
 | :-I | second step |
-</td>
-</tr>
-<tr><td colspan="2" bgcolor="#CCCCCC"> *Example 6: Create multiple lists with tables and hard linked item states to allow add/insert/remove items:*
-<br/>%X% The =%<nop>EDITTABLE%= and =%<nop>CHECKLISTSTART%= tag have to stay in the same line.
- </td></tr>
-<tr>
-<td bgcolor="#EEEEEE" valign="top" style="font-size:x-small;">
-<div style="font-size: x-small;">
-<verbatim>
+
+---+++ Example 6: Create multiple lists with tables and hard linked item states to allow add/insert/remove items
+%X% The =%<nop>EDITTABLE%= and =%<nop>CHECKLISTSTART%= tag have to stay in the same line.
+
+*You type:*
+
+<verbatim class="tml">
 %EDITTABLE{changerows="on" format="|label,0,#%SERVERTIME{$year$month$day$hour$min$sec}%|text,50|"}%%CHECKLISTSTART{name="list1"}%
 | *STATUS<br/>(click to change)* | *Item* |
 | #2007Feb07093710 | testitem |
@@ -166,11 +163,10 @@ To change the state of a checklist item just click on it.
 | #2007Feb07093712 | second |
 
 %CHECKLISTEND%
-
 </verbatim>
-</div>
-</td>
-<td bgcolor="#EEEEEE" valign="top">
+
+
+*You get:*
 
 %EDITTABLE{changerows="off" format="|label, 0, #%SERVERTIME{$year$month$day$hour$min$sec}% |text, 50|"}%
 | *STATUS<br>(click to change)* | *Item* |
@@ -181,58 +177,57 @@ To change the state of a checklist item just click on it.
 | *STATUS<br>(click to change)* | *Item* |
 | :ok: | second |
 
-</td>
 
-<tr><td colspan="2" bgcolor="#CCCCCC"> *Example 7: Create a legend and a reset button:*
-   * *Hint:* You can use multiple =%<nop>CHECKLIST%= tags to create more than one reset button or legend at any position of your checklist topic.
- </td></tr>
-<tr>
-<td bgcolor="#EEEEEE" valign="top">
-<verbatim>
+---+++ Example 7: Create a legend and a reset button
+
+*Hint:* You can use multiple =%<nop>CHECKLIST%= tags to create more than one reset button or legend at any position of your checklist topic.
+
+*You type:*
+
+<verbatim class="tml">
 %CHECKLISTSTART{showlegend="on" reset=":-I Reset"}%
    1 first step
    1 next step
 %CHECKLISTEND%
-
 </verbatim>
-</td>
-<td bgcolor="#EEEEEE" valign="top">
+
+*You get:*
+
    1 first step :-I
    1 next step :-I
 
 ( :-I - todo :ok: - done ) :-I Reset
 
-</td>
-</tr>
-<tr><td colspan="2" bgcolor="#CCCCCC"> *Example 8: Create a button to set all states in a checklist to =done=:*
+---+++ Example 8: Create a button to set all states in a checklist to =done=
+
    * the reset button was clicked
    * *Hint:* You can use multiple =%<nop>CHECKLIST%= tags to create more than one reset button.
-</td></tr>
-<tr>
-<td bgcolor="#EEEEEE" valign="top">
-<verbatim>
+
+*You type:*
+
+<verbatim class="tml">
    1 first step %CLI%
    1 next step %CLI%
 
 %CHECKLIST{reset=":ok: set all done @done"}%
 </verbatim>
-</td>
-<td bgcolor="#EEEEEE" valign="top">
+
+*You get:*
+
    1 first step :ok:
    1 next step :ok:
 
 :ok: set all done
 
-</td>
-</tr>
 
-<tr><td colspan="2" bgcolor="#CCCCCC"> *Example 9: Insert new items in an existing checklist without state lost:*
+---+++ Example 9: Insert new items in an existing checklist without state lost
+
    * =first step= and =second step= was clicked before new items (=first new inserted item= and =second new inserted item=) were added
    * *Hint:* You can put a =&lt;whitespace&gt;#&lt;ID&gt;= instead of =%<nop>CLI{id="&lt;ID&gt;"}%= into a bullet or ordered list item to add/insert a checklist item with own id. This works only between =%<nop>CHECKLISTSTART%...%<nop>CHECKLISTEND%=.
-</td></tr>
-<tr>
-<td bgcolor="#EEEEEE" valign="top">
-<verbatim>
+
+*You type:*
+
+<verbatim class="tml">
 %CHECKLISTSTART%
    1 first step
       1 first new inserted item #MyFirstInsertedItem
@@ -240,26 +235,36 @@ To change the state of a checklist item just click on it.
       1 second new inserted item %CLI{id="MySecondInsertedItem"}%
 %CHECKLISTEND%
 </verbatim>
-</td>
-<td bgcolor="#EEEEEE" valign="top">
+
+*You get:*
+
    1 first step :ok:
       1 first new inserted item :-I
    1 next step :ok:
       1 second new inserted item :-I
-</td>
-</tr>
-
-</table>
 
 #ChecklistAttributes
 ---++ Attributes
 Usage:
-<br/> %<nop>CLI{attribute1="value1" attribute2="value2" ...}%
-<br/> or %<nop>CHECKLIST{attribute1="value1" attribute2="value2" ...}%
-<br/> or %<nop>CHECKLISTSTART{attribute1="value1" attribute2="value2" ...}%
+
+<verbatim class="tml">
+%CLI{attribute1="value1" attribute2="value2" ...}%
+</verbatim>
+
+or
+
+<verbatim class="tml">
+%CHECKLIST{attribute1="value1" attribute2="value2" ...}%
+</verbatim>
+
+or
+
+<verbatim class="tml">
+%CHECKLISTSTART{attribute1="value1" attribute2="value2" ...}%
+</verbatim>
 
 Examples:
-<verbatim>
+<verbatim class="tml">
 %CHECKLIST{showlegend="on" reset=":-I Reset checklist"}%
 %CLI{id="i1"}%
 </verbatim>
@@ -293,7 +298,8 @@ Examples:
 | tooltipfixleft | %<nop>CLI%<br/>%<nop>CHECKLIST%<br/>%<nop>CHECKLISTSTART% | offset to fix horizontal tooltip position | =tooltipfixleft="-163"= |
 | tooltipfixtop | %<nop>CLI%<br/>%<nop>CHECKLIST%<br/>%<nop>CHECKLISTSTART% | offset to fix vertical tooltip position | =tooltipfixtop="0"= |
 | useajax | %<nop>CLI%<br/>%<nop>CHECKLIST%<br/>%<nop>CHECKLISTSTART%  | enables/disables <nop>JavaScript/AJAX based item state changes (default: =on=) | =useajax="1"= |
----++ Examples
+
+---++ Examples (if installed)
 Use this examples to check your installation:
 
    1 %CLI{text="first step"}%
@@ -375,9 +381,10 @@ Examples:
 %$INSTALL_INSTRUCTIONS%
 
 #ChecklistPluginInfo
----++ Plugin Info
+---++ Change History
 
-|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+%TABLE{columnwidths="10em" tablewidth="100%"}%
+|  v1.21 (11 Jun 2018) | fixed unescaped curly brackets; fixed docu |
 |  v1.202 (20 Nov 2017) | Foswikitask:Item13664: Re-opened task for another brace needing an escape. |
 |  v1.201 (10 Nov 2017) | Foswikitask:Item13664: Escape braces in regular expressions for compatibility with Perl 5.22+. |
 |  v1.200 (25 Jul 2015) | Foswikitask:Item1930: Use relative pub URL paths<br/> \
@@ -411,16 +418,12 @@ Examples:
 |  v1.001 (27 Oct 2005) | TWiki:Main.DanielRohde: added new features ('reset','text' attributes); fixed major 'name' attribute bug; fixed documentation bugs |
 |  v1.000 (27 Oct 2005): | TWiki:Main.DanielRohde: Initial version |
 
-__Related Topics:__ %USERSWEB%.SitePreferences, [[%SYSTEMWEB%.Plugins][Plugins]]
-
--- TWiki:Main.DanielRohde - 27 Oct 2005
-
 %META:FORM{name="PackageForm"}%
 %META:FIELD{name="Author" title="Author" value="TWiki:Main.DanielRohde"}%
 %META:FIELD{name="Version" title="Version" value="%25$VERSION%25"}%
 %META:FIELD{name="Release" title="Release" value="%25$RELEASE%25"}%
 %META:FIELD{name="Repository" title="Repository" value="https://github.com/foswiki/ChecklistPlugin"}%
-%META:FIELD{name="Copyright" title="Copyright" value="&copy; 2005-2009 Daniel Rohde%BR% &copy; 2008-2015 Foswiki Contributors"}%
+%META:FIELD{name="Copyright" title="Copyright" value="&copy; 2005-2009 Daniel Rohde%BR% &copy; 2008-2018 Foswiki Contributors"}%
 %META:FIELD{name="License" title="License" value="[[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]]"}%
 %META:FIELD{name="Home" title="Home" value="http://foswiki.org/Extensions/ChecklistPlugin"}%
 %META:FIELD{name="Support" title="Support" value="http://foswiki.org/Support/ChecklistPlugin"}%

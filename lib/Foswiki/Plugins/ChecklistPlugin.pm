@@ -3,7 +3,7 @@
 # Copyright (C) 2000-2003 Andrea Sterbini, a.sterbini@flashnet.it
 # Copyright (C) 2001-2004 Peter Thoeny, peter@thoeny.com
 # Copyright (C) 2005-2009 Daniel Rohde
-# Copyright (C) 2009-2017 Foswiki Contributors
+# Copyright (C) 2009-2018 Foswiki Contributors
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -35,8 +35,8 @@ use vars qw(
 use strict;
 use warnings;
 
-our $VERSION = '1.202';
-our $RELEASE = '20 Nov 2017';
+our $VERSION = '1.21';
+our $RELEASE = '11 Jun 2018';
 our $SHORTDESCRIPTION =
   "Maintain a list of checklist items with a simple mouse click.";
 our $NO_PREFS_IN_TOPIC = 1;
@@ -135,7 +135,7 @@ s/%CHECKLISTSTART\{(.*?)\}%(.*?)%CHECKLISTEND%/&handleAutoChecklist($1,$2,$_[0])
     $_[0] =~ s/%CHECKLIST\{(.*?)\}%/&handleChecklist($1,$_[0])/sge;
     $_[0] =~ s/%CLI(\{(.*?)\})?%/&handleChecklistItem($2,$_[0],$-[0],$+[0])/sge;
 
-    ##$_[0] =~ s/([^\n\%]*)%CLI({(.*?)})?%([^\n\%]*)/$1.&handleChecklistItem($3,$_[0],$1,$4).$4/sge;
+    ##$_[0] =~ s/([^\n\%]*)%CLI(\{(.*?)\})?%([^\n\%]*)/$1.&handleChecklistItem($3,$_[0],$1,$4).$4/sge;
 }
 
 # =========================
